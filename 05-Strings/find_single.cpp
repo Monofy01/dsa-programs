@@ -1,0 +1,25 @@
+#include <stdio.h>
+#include <iostream>
+using namespace std;
+
+int main() {
+
+    int A[] = {6,7,8,9,10,11,13,14,15,16,17};
+    int size = (int) (sizeof(A) / sizeof(int));
+    
+    int i;
+
+    int l = A[0];
+    int h = A[size-1];
+    cout<<"size "<<size;
+    
+    int diff = l - 0;
+
+    for(i = 0; i < size; i++) {
+        if(A[i]-i != diff) {
+            printf("missing element %d \n", i + diff);
+            break;
+        }
+    }
+
+}
