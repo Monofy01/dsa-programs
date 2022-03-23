@@ -283,29 +283,46 @@ void Concat(struct Node *p, struct Node *q) {
     p->next = q;
 }
 
-int main() {
+void Merge(struct Node *p, struct Node *q) {
+    struct Node *last;
 
-    int A[] = {50,40,10,30,20};
-    int B[] = {1,2,3,4,5};
+    if(p->data < q->data) {
+        third = last = p;
+        p = p->next;
+        third->next = NULL;
+    } else {
+        third = last = q;
+        q = q->next;
+        third->next = NULL;
+
+    }
+
+    while(p && q) {
+        if(p->data < q->data) {
+            last->next = p;
+            last = p;
+            p = p->next;
+            last->next = NULL;
+        } else {
+            last->next = q;
+            last = q;
+            q = q->next;
+            last->next = NULL;
+        }
+    }
+    if(p) last->next = p;
+    if(q) last->next = q;
+} 
+
+int main() {
+    int A[] = {10,20,40,50,60};
+    int B[] = {15,18,25,30,55};
 
     create(A, 5);
     create2(B, 5);
 
-    Concat(first, second);
-
-    printf("First\n");
-    display(first);
-    printf("\n\n");
-
-    printf("Second\n");
-    display(second);
-    printf("\n\n");
-
-
-    printf("Concatinated\n");
+    Merge(first, second);
     display(third);
-    printf("\n\n");
-
 
     return 0;
 } 
