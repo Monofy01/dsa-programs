@@ -5,7 +5,7 @@
 struct Node {
     int data;
     struct Node *next;
-}*first = NULL;
+}*first = NULL, *second = NULL, *third = NULL;
 
 void create(int A[], int n) {
     int i;
@@ -26,6 +26,24 @@ void create(int A[], int n) {
     }
 }
 
+void create2(int A[], int n) {
+    int i;
+    struct Node *t;
+    struct Node *last;
+
+    second = (struct Node*)malloc(sizeof(struct Node));
+    second->data = A[0];
+    second->next = NULL;
+    last = second;
+
+    for(i = 1; i < n; i++) {
+        t = (struct Node *)malloc(sizeof(struct Node));
+        t->data = A[i];
+        t->next = NULL;
+        last->next = t;
+        last = t;
+    }
+}
 void display(struct Node *p) {
     while(p != NULL) {
         printf("%d ", p->data);
@@ -113,21 +131,181 @@ struct Node * RSearch(struct Node *p, int key) {
     return RSearch(p->next, key);
 }
 
-int main() {
-    struct Node *temp;
-    int A[] = {3,5,7,10,25,8,32,2};
-    create(A, 8);
-    //Rdisplay(first);
-    //display(first);
-    //printf("Length is %d\n\n", Rcount(first));
-    //printf("Sum is %d\n\n", Rsum(first));
-    //printf("Max is %d\n", Rmax(first));
+void Insert(struct Node *p, int index, int x) {
+    struct Node *t;
+    int i;
+
+    if (index < 0 || index > count(p))
+        return;
+
+    t = (struct Node *)malloc(sizeof(struct Node));
+    t->data = x;
     
-    temp = RSearch(first, 25);
-    if(temp)
-        printf("Key is found %d", temp->data);
-    else
-        printf("Key not found");
+    if (index == 0) {
+        t->next = first;
+        first = t;   
+    } else {
+        for(i = 0; i < index - 1; i++)
+            p = p->next;
+        t->next = p->next;
+        p->next = t;
+    }    
+}
+  
+
+void SortedInsert(struct Node *p, int x) {
+    struct Node *t;
+    struct Node *q = NULL;
+
+    t = (struct Node *)malloc(sizeof(struct Node));
+    t->data = x;
+    t->next = NULL;
+
+    if(first == NULL)
+        first = t;
+    else {
+        while(p && p->data < x) {
+            q = p;
+            p = p->next;
+        }
+        if(p == first) {
+            t->next = first;
+            first = t;
+        } else {
+             t->next = q->next;
+             q->next = t;
+        }
+    }
+
+}
+
+int Delete(struct Node *p, int index) {
+    struct Node *q;
+    int x = -1;
+    int i;
+
+    if(index < 1 || index > count(p))
+        return -1;
+
+    if(index == 1) {
+        q = first;
+        x = first->data;
+        free(q);
+        return x;
+    } else {
+        for(i = 0; i < index - 1; i++) {
+            q = p;
+            p = p->next;
+        }
+        q->next = p->next;
+        x = p->data;
+        free(p);
+        return x;
+    }
+}
+
+int isSorted(struct Node *p) {
+    int x = INT_MIN;
+
+    while(p != NULL) {
+        if(p->data < x)
+            return 0;
+        x = p->data;
+        p = p->next;
+    }
+    return 1;
+}
+
+void RemoveDuplicate(struct Node *p) {
+    struct Node *q = p->next;
+    while(q != NULL) {
+        if(p->data != q->data) {
+            p = q;
+            q = q->next;
+        } else {
+            p->next = q->next;
+            free(q);
+            q = p->next;
+        }
+    }
+}
+
+void Reverse1(struct Node *p) {
+    int *A;
+    int i = 0;
+    struct Node *q = p;
+
+    A = (int *)malloc(sizeof(int)*count(p));
+    
+    while(q != NULL) {
+        A[i] = q->data;
+        q = q->next;
+        i++;
+    }
+    
+    q = p;
+    i--;
+
+    while(q != NULL) {
+        q->data = A[i];
+        q = q->next;
+        i--;
+    }
+}
+
+void Reverse2(struct Node *p) {
+    struct Node *q = NULL;
+    struct Node *r = NULL;      
+    
+    while(p != NULL) {
+        r = q;
+        q = p;
+        p = p->next;
+        q->next = r;
+    }
+    first = q;
+}
+
+void Reverse3(struct Node *q, struct Node *p) {
+    if(p) {
+        Reverse3(p, p->next);
+        p->next = q;
+    } else {
+        first = q;
+    }
+}
+
+void Concat(struct Node *p, struct Node *q) {
+    third = p;
+
+    while(p->next != NULL)
+        p = p->next;
+    p->next = q;
+}
+
+int main() {
+
+    int A[] = {50,40,10,30,20};
+    int B[] = {1,2,3,4,5};
+
+    create(A, 5);
+    create2(B, 5);
+
+    Concat(first, second);
+
+    printf("First\n");
+    display(first);
+    printf("\n\n");
+
+    printf("Second\n");
+    display(second);
+    printf("\n\n");
+
+
+    printf("Concatinated\n");
+    display(third);
+    printf("\n\n");
+
 
     return 0;
-}
+} 
