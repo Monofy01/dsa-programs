@@ -41,7 +41,16 @@ void RDisplay(struct Node *h) {
         RDisplay(h->next);
     }
     flag = 0;
-} 
+}
+
+int Length(struct Node *p) {
+    int len = 0;
+    do {
+        len++;
+        p = p->next;
+    } while(p != Head);
+    return len;
+}
 
 int main() {
     int A[] = {2,3,4,5,6};
