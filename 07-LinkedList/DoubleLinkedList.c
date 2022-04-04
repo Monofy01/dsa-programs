@@ -28,9 +28,19 @@ void create(int A[], int n) {
     }
 }
 
+void Display(struct Node *p) {
+    while(p) {
+        printf("%d ", p->data);
+        p = p->next;
+    }
+    printf("\n");
+}
+
+
 
 int main() {
     int A[] = {10,20,30,40,50};
     create(A,5);
+    Display(first);
     return 0;
 }
