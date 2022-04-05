@@ -98,11 +98,26 @@ int Delete(struct Node *p, int index) {
     return x;
 }
 
+void Reverse(struct Node *p) {
+    struct Node *temp;
+
+    while(p != NULL) {
+        temp = p->next;
+        p->next = p->prev;
+        p->prev = temp;
+        p = p->prev;
+        if(p != NULL && p->next == NULL)
+            first = p;
+    }
+}
+
+
+
 
 int main() {
     int A[] = {10,20,30,40,50};
     create(A,5);
-    Delete(first, 5);
+    Reverse(first);
     Display(first);
     return 0;
 }
