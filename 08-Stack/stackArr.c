@@ -18,7 +18,7 @@ void Display(struct Stack st) {
     int i;
     for(i = st.top; i >= 0; i--)
         printf("%d ", st.S[i]);
-    printf("\n")
+    printf("\n");
 }
 
 int push(struct Stack *st, int x) {
@@ -30,6 +30,24 @@ int push(struct Stack *st, int x) {
     }
 }
 
+int pop(struct Stack *st) {
+    int x = -1;
+
+    if(st->top == -1)
+        printf("Stack Underflow\n");
+    else {
+        x = st->S[st->top--];
+    }
+    return x;
+}
+
 int main() {
+    struct Stack st;
+    create(&st);
+    push(&st, 10);
+    push(&st, 20);
+    push(&st, 30);
+
+    Display(st);
 
 }
