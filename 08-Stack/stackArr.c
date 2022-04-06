@@ -60,6 +60,12 @@ int isFull(struct Stack st) {
     return st.top == st.size - 1;
 }
 
+int stackTop(struct Stack st) {
+    if(!isEmpty(st))
+        return st.S[st.top];
+    return -1;
+}
+
 int main() {
     struct Stack st;
     create(&st);
