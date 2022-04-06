@@ -50,6 +50,16 @@ int peek(struct Stack st, int index) {
     return x;
 }
 
+int isEmpty(struct Stack st) {
+    if(st.top == -1)
+        return 1;
+    return 0;
+}
+
+int isFull(struct Stack st) {
+    return st.top == st.size - 1;
+}
+
 int main() {
     struct Stack st;
     create(&st);
