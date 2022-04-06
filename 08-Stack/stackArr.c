@@ -21,6 +21,15 @@ void Display(struct Stack st) {
     printf("\n")
 }
 
+int push(struct Stack *st, int x) {
+    if(st->top == st->size - 1)
+        printf("Stack overflow\n");
+    else {
+        st->top++;
+        st->S[st->top] = x;
+    }
+}
+
 int main() {
 
 }
