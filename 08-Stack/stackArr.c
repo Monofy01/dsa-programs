@@ -21,7 +21,7 @@ void Display(struct Stack st) {
     printf("\n");
 }
 
-int push(struct Stack *st, int x) {
+void push(struct Stack *st, int x) {
     if(st->top == st->size - 1)
         printf("Stack overflow\n");
     else {
@@ -41,12 +41,22 @@ int pop(struct Stack *st) {
     return x;
 }
 
+int peek(struct Stack st, int index) {
+    int x = -1;
+    if(st.top - index + 1 < 0)
+        printf("Invalid Index \n");
+    x = st.S[st.top - index + 1];
+
+    return x;
+}
+
 int main() {
     struct Stack st;
     create(&st);
     push(&st, 10);
     push(&st, 20);
-    push(&st, 30);
+
+    printf("peek: %d\n", peek(st, 1));
 
     Display(st);
 
