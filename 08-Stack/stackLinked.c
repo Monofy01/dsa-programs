@@ -34,10 +34,24 @@ int pop() {
     return x;
 }
 
+void Display() {
+    struct Node *p;
+    p = top;
 
-
-
+    while(p != NULL) {
+        printf("%d ", p->data);
+        p = p->next;
+    }
+    printf("\n");
+}
 
 int main() {
+    push(10);
+    push(20);
+    push(30);
 
+    Display();
+    printf("%d ", pop());
+
+    return 0;
 }
