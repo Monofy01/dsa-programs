@@ -23,6 +23,18 @@ void enqueue(struct Queue *q, int x) {
     }
 }
 
+int dequeue(struct Queue *q) {
+    int x = -1;
+    if(q->front == q->rear)
+        printf("Queue is Empty\n");
+    else {
+        q->front++;
+        x = q->Q[q->front];
+    }
+    return x;
+
+}
+
 int main() {
     struct Queue q;
     create(&q,5);
