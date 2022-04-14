@@ -1,5 +1,5 @@
 #include <stdio.h>
-#include <stdlib.h>git
+#include <stdlib.h>
 
 struct Queue {
     int size;
@@ -23,6 +23,14 @@ void enqueue(struct Queue *q, int x) {
     }
 }
 
+void Display(struct Queue q) {
+    int i;
+
+    for(i=q.front+1; i <= q.rear; i++)
+        printf("%d ", q.Q[i]);
+    printf("\n");
+}
+
 int dequeue(struct Queue *q) {
     int x = -1;
     if(q->front == q->rear)
@@ -39,6 +47,11 @@ int main() {
     struct Queue q;
     create(&q,5);
 
+    enqueue(&q, 10);
+    enqueue(&q, 20);
+    enqueue(&q, 30);
+
+    Display(q);
 
     return 0;
 }
